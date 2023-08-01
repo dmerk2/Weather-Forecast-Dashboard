@@ -1,6 +1,5 @@
-let dateEl = document.getElementById("date");
-let recentSearches = document.getElementById("recentSearches");
-let cityName = document.getElementById("cityName");
+const recentSearches = document.getElementById("recentSearches");
+const cityName = document.getElementById("cityName");
 const search = document.getElementById("search");
 const clear = document.getElementById("clear");
 const forecastContainer = document.querySelector(".forecast-container");
@@ -15,6 +14,7 @@ const getHistory = (searchHistory) => {
   recentSearches.append(btn);
 };
 
+// Render local storage
 let searchHistory = JSON.parse(localStorage.getItem("city")) || [];
 for (let i = 0; i < searchHistory.length; i++) {
   getHistory(searchHistory[i]);
@@ -35,9 +35,10 @@ const getWeather = (city) => {
   let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   fetch(requestUrl)
     .then(function (response) {
-      // Display the response code
-      if (response.status) {
-        console.log(response.status);
+      // Alert if valid city is not entered
+      if (!response.ok) {
+        alert("Please enter valid city name");
+        return;
       }
       return response.json();
     })
@@ -55,9 +56,6 @@ const getForecast = (lat, lon) => {
   let requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
   fetch(requestUrl2)
     .then(function (response) {
-      if (response.status) {
-        console.log(response.status);
-      }
       return response.json();
     })
     .then(function (data) {
@@ -85,8 +83,8 @@ const displayWeather = (data) => {
     "src",
     "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
   );
-  temp.textContent = `Temperature: ${data.main.temp} F`;
-  humidity.textContent = `Humidity: ${data.main.humidity} %`;
+  temp.textContent = `Temperature: ${data.main.temp} °F`;
+  humidity.textContent = `Humidity: ${data.main.humidity}%`;
   wind.textContent = `Wind Speed: ${data.wind.speed} MPH`;
   h4.textContent = data.name;
   h6.textContent = new Date(data.dt * 1000).toDateString();
@@ -120,8 +118,8 @@ const displayForecast = (data) => {
       "src",
       "https://openweathermap.org/img/w/" + data[i].weather[0].icon + ".png"
     );
-    temp.textContent = `Temperature: ${data[i].temp.day} F`;
-    humidity.textContent = `Humidity: ${data[i].humidity} %`;
+    temp.textContent = `Temperature: ${data[i].temp.day} °F`;
+    humidity.textContent = `Humidity: ${data[i].humidity}%`;
     wind.textContent = `Wind Speed: ${data[i].speed} MPH`;
     h6.textContent = new Date(data[i].dt * 1000).toDateString();
     span.append(icon);
@@ -150,8 +148,9 @@ recentSearches.addEventListener("click", (e) => {
   forecastContainer.innerHTML = "";
   const cityClicked = this.event.target.textContent;
   getWeather(cityClicked);
-})
+});
 
+// Clear local storage and clear recent searches
 clear.addEventListener("click", () => {
   localStorage.clear();
   recentSearches.textContent = "";
