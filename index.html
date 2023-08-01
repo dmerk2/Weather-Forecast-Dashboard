@@ -17,7 +17,7 @@
   </header>
   <main>
     <section class="row m-3">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <form>
           <label class="form-label fs-2">Search for a City:</label>
           <input type="text" name="cityName" id="cityName" placeholder="San Diego" class="form-control">
@@ -28,50 +28,10 @@
         <button id="clear" class="btn btn-danger w-100">Clear</button>
       </div>
       <div class="col-md-8">
-        <div>
-          <h2 id="city">City <span id="date"></span><span id="icon"></span></h2>
-          <p>Temperature: <span id="temp"></span></p>
-          <p>Wind: <span id="wind"></span></p>
-          <p> <span id="humidity"></span>Humidity:</p>
+        <div class="weather-container">
         </div>
-        <div class="row pt-5">
-          <div class="col">
-            <p id="fDate1" class="fs-4"></p>
-            <img src="" alt="icon" id="fIcon1">
-            <p>Temp: <span id="fTemp1"></span></p>
-            <p>Wind: <span id="fWind1"></span></p>
-            <p>Humidity: <span id="fHumidity1"></span></p>
-          </div>
-          <div class="col">
-            <p id="fDate2" class="fs-4"></p>
-            <img src="" alt="icon" id="fIcon2">
-            <p>Temp: <span id="fTemp2"></span></p>
-            <p>Wind: <span id="fWind2"></span></p>
-            <p>Humidity: <span id="fHumidity2"></span></p>
-          </div>
-          <div class="col">
-            <p id="fDate3" class="fs-4"></p>
-            <img src="" alt="icon" id="fIcon3">
-            <p>Temp: <span id="fTemp3"></span></p>
-            <p>Wind: <span id="fWind3"></span></p>
-            <p>Humidity: <span id="fHumidity3"></span></p>
-          </div>
-          <div class="col">
-            <p id="fDate4" class="fs-4"></p>
-            <img src="" alt="icon" id="fIcon4">
-            <p>Temp: <span id="fTemp4"></span></p>
-            <p>Wind: <span id="fWind4"></span></p>
-            <p>Humidity: <span id="fHumidity4"></span></p>
-          </div>
-          <div class="col">
-            <p id="fDate5" class="fs-4"></p>
-            <img src="" alt="icon" id="fIcon5">
-            <p>Temp: <span id="fTemp5"></span></p>
-            <p>Wind: <span id="fWind5"></span></p>
-            <p>Humidity: <span id="fHumidity5"></span></p>
-          </div>
+        <div class="row py-5 forecast-container">
         </div>
-      </div>
     </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
