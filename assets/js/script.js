@@ -7,6 +7,7 @@ const weatherContainer = document.querySelector(".weather-container");
 
 let cities = [];
 
+// Create a button for each city searched
 const getHistory = (searchHistory) => {
   const btn = document.createElement("button");
   btn.setAttribute("class", "btn btn-warning");
@@ -30,9 +31,11 @@ const saveToLocalStorage = (city) => {
   }
 };
 
+// Function to get current weather from input from user for city
 const getWeather = (city) => {
   let apiKey = "b1434cc4b4c38161215a67768fa4f514";
   let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+  // Use fetch to create a request from API 
   fetch(requestUrl)
     .then(function (response) {
       // Alert if valid city is not entered
@@ -44,6 +47,7 @@ const getWeather = (city) => {
     })
     .then(function (data) {
       console.log(data);
+      // Pull lat and lon from current city that is searched
       const lat = data.coord.lat;
       const lon = data.coord.lon;
       getForecast(lat, lon);
@@ -51,6 +55,7 @@ const getWeather = (city) => {
     });
 };
 
+// Get 5 day forecast from city that is searched 
 const getForecast = (lat, lon) => {
   let apiKey = "b1434cc4b4c38161215a67768fa4f514";
   let requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
@@ -64,6 +69,7 @@ const getForecast = (lat, lon) => {
     });
 };
 
+// Dynamically create cards to display weather
 const displayWeather = (data) => {
   weatherContainer.innerHTML = "";
   const cards = document.createElement("div");
@@ -97,6 +103,7 @@ const displayWeather = (data) => {
   weatherContainer.append(cards);
 };
 
+// Dynamically create cards to display forecast cards
 const displayForecast = (data) => {
   forecastContainer.innerHTML = "";
   for (let i = 1; i < 6; i++) {
@@ -132,6 +139,7 @@ const displayForecast = (data) => {
   }
 };
 
+// Event to listen for when search button is clicked
 search.addEventListener("click", () => {
   let citySearched = cityName.value;
   if (!citySearched) {
@@ -142,6 +150,7 @@ search.addEventListener("click", () => {
   getWeather(citySearched);
 });
 
+// Show current weather and forecast data when clicking on a previously searched city
 recentSearches.addEventListener("click", (e) => {
   e.preventDefault();
   weatherContainer.innerHTML = "";
